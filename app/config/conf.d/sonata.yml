@@ -1,0 +1,118 @@
+sonata_admin:
+    title:      " "
+    title_logo: bundles/pmcmain/img/logo.jpg
+    templates:
+        search:              SonataAdminBundle:Core:search.html.twig
+        search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
+    security:
+        handler: sonata.admin.security.handler.acl
+        # acl security information
+        information:
+            GUEST:    [VIEW, LIST]
+            STAFF:    [EDIT, LIST, CREATE]
+            EDITOR:   [OPERATOR, EXPORT]
+            ADMIN:    [MASTER]
+        # permissions not related to an object instance and also to be available when objects do not exist
+        # the DELETE admin permission means the user is allowed to batch delete objects
+        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
+        # permission related to the objects
+        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]
+    
+    dashboard:
+        groups:
+
+
+        blocks:
+#            - { position: left, type: sonata.admin.block.admin_list }
+#            - { position: right, type: sonata.admin_doctrine_orm.block.audit}
+            - { position: left, type: sonata.block.service.text, settings: { content: "<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Welcome!</h3></div><div class='panel-body'>You can customize this dashboard by editing the <code>sonata_admin.yml</code> file. The current dashboard presents the recent items from the NewsBundle and a non-statistical e-commerce information.</div></div>"} }
+            # This block is disabled for now as the bundle generates an exception with composite key
+#            - { position: left, type: sonata.timeline.block.timeline, settings: { context: SONATA_ADMIN, max_per_page: 25 }}
+            # - { position: left, type: sonata.news.block.recent_posts, settings: { title: Recent Posts, number: 7, mode: admin }}
+            # - { position: left, type: sonata.news.block.recent_comments, settings: { title: Recent Comments, number: 7, mode: admin }}
+            - { position: right, type: sonata.order.block.recent_orders, settings: { title: Recent Orders, number: 5, mode: admin }}
+            - { position: right, type: sonata.customer.block.recent_customers, settings: { title: Recent Customers, number: 5, mode: admin }}
+
+
+sonata_block:
+    default_contexts: [sonata_page_bundle]
+
+    http_cache:
+        listener: true
+
+
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts:   [admin]
+
+        #sonata.admin_doctrine_orm.block.audit:
+        #    contexts:   [admin]
+
+        # Builtin Block
+        sonata.block.service.text:
+        sonata.block.service.container:
+        sonata.block.service.rss:
+        sonata.block.service.menu:
+        sonata.block.service.template:
+
+
+
+        # MediaBundle's Blocks
+        sonata.media.block.media:
+        sonata.media.block.gallery:
+        sonata.media.block.feature_media:
+
+
+        # Ecommerce's Blocks
+        sonata.order.block.recent_orders:
+        sonata.product.block.recent_products:
+        sonata.product.block.similar_products:
+        sonata.product.block.categories_menu:
+        sonata.product.block.filters_menu:
+        sonata.product.block.variations_form:
+        sonata.customer.block.recent_customers:
+        sonata.basket.block.nb_items:
+            cache: sonata.page.cache.js_async
+            contexts: [user]
+        sonata.basket.block.nb_items:
+            cache: sonata.page.cache.js_async
+            contexts: [user]
+
+        # TimelineBundle's Blocks
+
+        # sonata.timeline.block.timeline:
+        # sonata.timeline.block.timeline:
+        #     contexts:   [admin]
+
+        # UserBundle's Blocks
+        sonata.user.block.account:
+            cache: sonata.page.cache.js_async
+            #cache: sonata.page.cache.esi
+            contexts: [user]
+        sonata.user.block.menu:
+            contexts: [user]
+
+        # SeoBundle's Blocks
+        sonata.seo.block.email.share_button:
+        sonata.seo.block.facebook.like_box:
+        sonata.seo.block.facebook.like_button:
+        sonata.seo.block.facebook.send_button:
+        sonata.seo.block.facebook.share_button:
+        sonata.seo.block.pinterest.pin_button:
+        sonata.seo.block.twitter.share_button:
+        sonata.seo.block.twitter.follow_button:
+        sonata.seo.block.twitter.hashtag_button:
+        sonata.seo.block.twitter.mention_button:
+        sonata.seo.block.twitter.embed:
+
+        sonata.demo.block.newsletter:
+
+
+        # Formatter
+        sonata.formatter.block.formatter:
+
+        sonata.seo.block.breadcrumb.homepage:
+
+sonata_core: ~

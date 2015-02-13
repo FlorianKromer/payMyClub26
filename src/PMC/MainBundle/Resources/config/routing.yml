@@ -1,0 +1,6 @@
+pmc_main_index:
+    path:     /
+    defaults: { _controller: PMCMainBundle:Default:index }
+
+
+
